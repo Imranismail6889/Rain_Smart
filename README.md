@@ -3,7 +3,7 @@ RainSmart is a smart, interactive web application designed to help users track w
 
 You can view the live application here: myrainsmart.vercel.app
 
-Features
+-Features
 
 Real-time Weather Monitoring: Check current meteorological conditions and rain forecasts.
 
@@ -11,7 +11,7 @@ Interactive Dashboard: Clean, user-friendly UI built with modern HTML5, CSS3, an
 
 Responsive Design: Optimized for seamless usage across desktop, tablet, and mobile devices.
 
-language
+-language
 
 html.
 csss.

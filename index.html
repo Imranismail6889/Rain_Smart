@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#f4f7f2" />
+    <meta name="description" content="Estimate roof rainwater collection with local rainfall history, weather forecasts, and storage planning." />
+    <title>RainSmart — make every drop count</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <div class="site-shell">
+      <header class="topbar">
+        <a class="brand" href="#top" aria-label="RainSmart home">
+          <span class="brand-mark" aria-hidden="true">
+            <svg viewBox="0 0 32 32" fill="none"><path d="M16 3.5C13.8 7.4 7 14.4 7 20.3a9 9 0 0 0 18 0c0-5.9-6.8-12.9-9-16.8Z" fill="currentColor"/><path d="M11.7 21.4c.2 2.1 1.8 3.8 4 4.2" stroke="#EAF5EA" stroke-linecap="round" stroke-width="1.8"/></svg>
+          </span>
+          <span>Rain<span class="brand-light">Smart</span></span>
+        </a>
+        <div class="topbar-right">
+          <span class="topbar-note"><span class="status-dot"></span> RAINWATER PLANNER</span>
+          <a class="top-link" href="#how-it-works">How it works <span aria-hidden="true">↗</span></a>
+        </div>
+      </header>
+
+      <main id="top">
+        <section class="intro" aria-labelledby="page-title">
+          <div class="intro-copy">
+            <div class="eyebrow"><span class="eyebrow-line"></span> PLAN A MORE WATER-WISE HOME</div>
+            <h1 id="page-title">Make every<br /><span>drop count.</span></h1>
+            <p>See what your roof could collect, month by month. Local rainfall history helps turn a little rooftop into a more reliable water source.</p>
+          </div>
+          <div class="intro-art" aria-hidden="true">
+            <div class="art-orbit orbit-one"></div><div class="art-orbit orbit-two"></div>
+            <div class="art-drop"><svg viewBox="0 0 96 122" fill="none"><path d="M48 3C38 21 9 50 9 76a39 39 0 0 0 78 0C87 50 58 21 48 3Z" fill="url(#dropFill)"/><path d="M29 78c1 9 8 16 17 18" stroke="#F4FAF3" stroke-linecap="round" stroke-width="5"/><defs><linearGradient id="dropFill" x1="15" y1="10" x2="83" y2="109" gradientUnits="userSpaceOnUse"><stop stop-color="#9AC49A"/><stop offset="1" stop-color="#4F8D69"/></linearGradient></defs></svg></div>
+            <div class="art-caption"><span class="art-caption-icon">✳</span><span>RAIN IN.<br />POTENTIAL OUT.</span></div>
+          </div>
+        </section>
+
+        <section class="workspace" aria-label="Rainwater collection estimator">
+          <section class="input-card panel" aria-labelledby="setup-title">
+            <div class="panel-heading">
+              <div class="step-label"><span>01</span> YOUR ROOF & LOCATION</div>
+              <h2 id="setup-title">Let’s start with the basics</h2>
+              <p>A couple of details make your estimate personal.</p>
+            </div>
+
+            <form id="calculator-form" novalidate>
+              <label class="field-label" for="roof-area">Roof catchment area <span>m²</span></label>
+              <div class="number-wrap">
+                <input id="roof-area" name="roofArea" type="number" min="1" max="1000000" step="1" value="120" inputmode="decimal" aria-describedby="roof-help" />
+                <span class="field-unit">m²</span>
+              </div>
+              <p class="field-help" id="roof-help">Measure the horizontal footprint of the roof.</p>
+
+              <label class="field-label location-label" for="location-search">Your location</label>
+              <div class="location-row">
+                <div class="search-wrap">
+                  <svg class="search-icon" viewBox="0 0 20 20" aria-hidden="true"><circle cx="8.7" cy="8.7" r="5.7"/><path d="m13 13 4 4"/></svg>
+                  <input id="location-search" name="location" type="search" placeholder="Search city or postcode" autocomplete="off" aria-controls="location-results" aria-expanded="false" />
+                </div>
+                <button class="icon-button" id="use-location" type="button" title="Use my location" aria-label="Use my location">
+                  <svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="6.2"/><circle cx="10" cy="10" r="2"/><path d="M10 1.5v2M10 16.5v2M1.5 10h2m13 0h2"/></svg>
+                </button>
+                <button class="search-button" type="submit">Find <span aria-hidden="true">→</span></button>
+              </div>
+              <div class="location-results" id="location-results" role="listbox" aria-label="Location suggestions" hidden></div>
+              <p class="field-help location-help" id="location-status" aria-live="polite">Choose a location to load local rainfall.</p>
+            </form>
+
+            <div class="efficiency-note">
+              <span class="efficiency-icon" aria-hidden="true">↗</span>
+              <div><strong>80% collection efficiency</strong><span>Allows for typical roof and drainage losses.</span></div>
+              <span class="efficiency-fixed">FIXED</span>
+            </div>
+          </section>
+
+          <section class="results-card" aria-labelledby="results-title">
+            <div class="results-topline"><div class="step-label step-light"><span>02</span> YOUR COLLECTION POTENTIAL</div><span class="data-badge" id="data-badge"><span class="badge-dot"></span> WAITING FOR LOCATION</span></div>
+            <div class="results-heading">
+              <div>
+                <p class="location-kicker" id="selected-location">LOCATION NOT SET</p>
+                <h2 id="results-title">Your estimate<br />starts here.</h2>
+              </div>
+              <div class="rain-icon" aria-hidden="true"><svg viewBox="0 0 40 40" fill="none"><path d="M20 4C16.7 10 7 19.4 7 27a13 13 0 0 0 26 0C33 19.4 23.3 10 20 4Z" fill="currentColor"/><path d="M14 27c.2 3 2.4 5.3 5.3 5.8" stroke="#183B2B" stroke-linecap="round" stroke-width="2.2"/></svg></div>
+            </div>
+            <div class="annual-block">
+              <div class="metric-label">AVERAGE YEARLY COLLECTION</div>
+              <div class="annual-value"><span id="annual-litres">—</span><span class="annual-unit">litres</span></div>
+              <div class="annual-sub" id="annual-sub">Select a location to see your estimate</div>
+            </div>
+            <div class="metrics-row">
+              <div class="mini-metric"><span class="mini-label">MONTHLY AVERAGE</span><strong id="monthly-litres">— <small>L</small></strong><span id="monthly-rainfall" class="mini-detail">of local rainfall</span></div>
+              <div class="metric-divider"></div>
+              <div class="mini-metric"><span class="mini-label">RAINY WEEK AHEAD</span><strong id="forecast-litres">— <small>L</small></strong><span id="forecast-rainfall" class="mini-detail">7-day forecast yield</span></div>
+            </div>
+            <div class="result-actions"><button class="save-button" id="save-estimate" type="button" disabled><span aria-hidden="true">＋</span> Save this estimate</button><span class="result-footnote" id="history-feedback" aria-live="polite">Based on 5-year rainfall average</span></div>
+          </section>
+        </section>
+
+        <section class="insights-grid" aria-label="Rainfall and storage details">
+          <section class="panel rainfall-card" aria-labelledby="rainfall-title">
+            <div class="section-head">
+              <div><div class="step-label"><span>03</span> RAINFALL BREAKDOWN</div><h2 id="rainfall-title">A year in rainfall</h2></div>
+              <div class="unit-toggle" role="group" aria-label="Chart measure"><button class="unit-active" type="button" data-chart-mode="rain" aria-pressed="true">mm</button><button type="button" data-chart-mode="yield" aria-pressed="false">litres</button></div>
+            </div>
+            <div class="chart-summary"><strong id="rainfall-summary">Monthly rainfall averages</strong><span id="rainfall-period">Last 5 complete years</span></div>
+            <div class="rain-chart" id="rain-chart" role="img" aria-label="Monthly rainfall chart. Choose a location to load data.">
+              <div class="chart-empty"><span class="chart-empty-drop">↗</span>Local rainfall will appear here</div>
+            </div>
+            <div class="chart-legend"><span><i class="legend-dot"></i> Average rainfall</span><span class="chart-units">millimetres per month</span></div>
+          </section>
+
+          <section class="panel storage-card" aria-labelledby="storage-title">
+            <div class="step-label"><span>04</span> STORAGE PLANNER</div>
+            <h2 id="storage-title">Make room for rain</h2>
+            <p class="storage-intro">Compare your tank with the estimated yield in your wettest average month.</p>
+            <label class="field-label storage-label" for="storage-capacity">Your storage capacity</label>
+            <div class="storage-input-wrap"><input id="storage-capacity" type="number" value="5000" min="1" max="100000000" step="100" inputmode="numeric" /><span>litres</span></div>
+            <div class="capacity-meter" aria-label="Storage capacity compared with wettest month estimate"><div class="capacity-fill" id="capacity-fill"></div></div>
+            <div class="capacity-scale"><span id="capacity-percent">Choose a location</span><span id="peak-month-label">Peak month</span></div>
+            <div class="storage-callout" id="storage-callout"><span class="storage-callout-icon">◌</span><span>Choose a location to see how your storage compares.</span></div>
+          </section>
+        </section>
+
+        <section class="panel forecast-card" aria-labelledby="forecast-title">
+          <div class="forecast-intro">
+            <div class="step-label"><span>05</span> COMING FROM THE SKY</div>
+            <h2 id="forecast-title">The week ahead</h2>
+            <p>Local rain forecast, translated into potential roof collection.</p>
+            <span class="forecast-source">LIVE WEATHER DATA</span>
+          </div>
+          <div class="forecast-days" id="forecast-days" aria-live="polite"><div class="forecast-empty">Choose a location to see the 7-day outlook.</div></div>
+        </section>
+
+        <section class="panel history-card" aria-labelledby="history-title">
+          <div class="history-heading">
+            <div><div class="step-label"><span>06</span> SAVED FOR LATER</div><h2 id="history-title">Calculation history</h2><p>Your saved estimates stay in this browser.</p></div>
+            <button class="text-button" id="clear-history" type="button" hidden>Clear history <span aria-hidden="true">↗</span></button>
+          </div>
+          <div class="history-list" id="history-list"><div class="history-empty"><span class="history-empty-icon">↺</span><span>Your saved calculations will show up here.</span></div></div>
+        </section>
+
+        <section class="how-section" id="how-it-works" aria-labelledby="how-title">
+          <div class="how-title"><div class="eyebrow"><span class="eyebrow-line"></span> THE SIMPLE MATH</div><h2 id="how-title">A little rain adds up.</h2><p>Every millimetre of rain on one square metre is one litre of water. We account for an 80% collection efficiency.</p></div>
+          <div class="formula-card"><div class="formula-label">THE RAINSMART FORMULA</div><div class="formula">Roof area <span>×</span> rainfall <span>×</span> 0.8</div><div class="formula-units">m² &nbsp; × &nbsp; mm &nbsp; × &nbsp; collection efficiency</div><div class="formula-note"><span>i</span> Actual collection varies with roofing material, drainage, and water losses.</div></div>
+        </section>
+      </main>
+
+      <footer class="footer"><a class="brand footer-brand" href="#top"><span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 32 32" fill="none"><path d="M16 3.5C13.8 7.4 7 14.4 7 20.3a9 9 0 0 0 18 0c0-5.9-6.8-12.9-9-16.8Z" fill="currentColor"/><path d="M11.7 21.4c.2 2.1 1.8 3.8 4 4.2" stroke="#EAF5EA" stroke-linecap="round" stroke-width="1.8"/></svg></span><span>Rain<span class="brand-light">Smart</span></span></a><span>Rainfall data by <a href="https://open-meteo.com/" target="_blank" rel="noreferrer">Open-Meteo</a> · Location data by GeoNames</span><span>Estimates are indicative, not a guarantee of yield.</span></footer>
+    </div>
+  </body>
+</html>
